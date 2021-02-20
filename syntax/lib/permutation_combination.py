@@ -1,4 +1,5 @@
 data = ['A', 'B', 'C']
+
 # 순열
 from itertools import permutations
 

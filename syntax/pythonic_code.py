@@ -1,8 +1,8 @@
 # Split & Join
 items = "zero,one,two,three"
-list = items.split(",")  # ['zero', 'one', 'two', 'three']
+l = items.split(",")  # ['zero', 'one', 'two', 'three']
 a, b, c, d = items.split(",")  # 언패킹까지 한 번에
-items2 = "-".join(list)  # zero-one-two-three
+items2 = "-".join(l)  # zero-one-two-three
 
 ####################################################
 # List comprehensions
