@@ -68,23 +68,3 @@ def factorial(n):
 
 factorial(3)  # 6
 reduce(lambda x, y: x + y, [1, 2, 3, 4])  # 10
-
-####################################################
-# asterisk
-# 1. 가변인자
-def func(a, *args, **kwargs):
-    print(a)
-    print(args)  # (2, 3, 4) 튜플 타입
-    print(kwargs)  # {'x': 1, 'y': 2, 'z': 3} 딕셔너리 타입
-
-
-func(1, 2, 3, 4, x=1, y=2, z=3)
-
-# 2. unpacking
-a, b, c = ([1, 2], [3, 4], [5, 6])
-print(a, b, c)
-data = ([1, 2], [3, 4], [5, 6])
-print(*data)  # [1, 2] [3, 4] [5, 6]
-
-for data in zip(*([1, 2], [3, 4], [5, 6])):
-    print(data)  # (1, 3, 5) (2, 4, 6)

@@ -1,4 +1,3 @@
-"""
 # input => str
 n = int(input())
 # data = list(map(int, input().split()))
@@ -17,7 +16,9 @@ import sys
 
 data = sys.stdin.readline().rstrip()  # 오른쪽 엔터 제거
 print(data)
-"""
+
+op, *num = sys.stdin.readline().split()  # num은 없을 수 있다.
+
 # print 이후 줄바꿈 하지 않으려면
 print(1, end="")
 print(2, end="!")  # 12!
@@ -25,4 +26,3 @@ print(2, end="!")  # 12!
 # f-string
 answer = 4
 print(f"정답은 {answer}입니다")
-
