@@ -1,5 +1,5 @@
 data = input()
-row = ord(data[0]) - ord("a") + 1  # 문자열->아스키코드
+row = ord(data[0]) - ord("a") + 1  # 문자열->아스키코드 ordinal:서수
 col = int(data[1])
 
 # 방향 벡터 정의 - 2가지 방법
