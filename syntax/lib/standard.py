@@ -7,7 +7,7 @@ max_result = max(7, 3, 5, 2)  # 7
 # eval: 식을 계산해 수로 반환
 result = eval("(3+5)*7")  # 56
 
-# sorted()
+# sorted() : 원본 리스트에 변화 x. 정렬된 리스트를 생성해서 반환 (느림)
 result = sorted([9, 1, 8, 5, 4])  # [1, 4, 5, 8, 9]
 reverse_result = sorted([9, 1, 8, 5, 4], reverse=True)  # [9, 8, 5, 4, 1]
 # sorted() with key: 정렬 기준을 람다식으로 명시
