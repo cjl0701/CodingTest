@@ -27,7 +27,7 @@ list = list(enumerate(["a", "b", "c", "d"]))  # [(0, 'a'), (1, 'b'), (2, 'c'), (
 dict = {i: v for i, v in enumerate("I like apple".split())}  # {0: 'I', 1: 'like', 2: 'apple'} <class 'dict'>
 
 ####################################################
-# Zip
+# Zip: 병렬적으로 원소 추출해서 tuple 만듦
 list1 = ['1', '2', '3']
 list2 = ['a', 'b', 'c']
 for x, y in zip(list1, list2):
