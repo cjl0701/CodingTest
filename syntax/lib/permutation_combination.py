@@ -6,6 +6,7 @@ from itertools import permutations
 result = list(permutations(data, 3))  # 3개 골라 순서 있게 나열
 print(result)  # [('A', 'B', 'C'), ('A', 'C', 'B'), ('B', 'A', 'C'), ('B', 'C', 'A'),,,
 result = list(permutations(data, 2))  # 2개 골라 순서 있게 나열
+# (1,7), (1,9), (1,9) 이런식으로 같은 것을 걸러주진 않는다.next_permutation 이나 재귀 or set
 
 # 조합
 from itertools import combinations
