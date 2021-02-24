@@ -8,6 +8,6 @@ from itertools import permutations
 n, m = map(int, input().split())
 data = list(map(int, input().split()))
 
-# for p in sorted(list(set(permutations(data, m)))):
-#     sys.stdout.write(' '.join(map(str, p)) + "\n")
+for p in sorted(list(set(permutations(data, m)))):
+    sys.stdout.write(' '.join(map(str, p)) + "\n")
 
