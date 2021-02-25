@@ -17,8 +17,14 @@ a.intersection(b)
 a.difference(b)
 
 # 원소 조회, 추가 및 삭제 - O(1)
-print(4 in data) # False
+print(4 in data)  # False
 data.add(4)
 data.update([5, 6])  # 여러 개 추가
 data.remove(3)  # 원소 3 삭제
 data.clear()  # 비우기
+
+# TypeError: unhashable type: 'list'
+s = set()
+arr = [1, 2]
+s.add(arr.copy())  # set에 들어있는 값들은 해쉬 가능해야 한다. 문자열,숫자,튜플만 가능.
+s.add(tuple(arr))  # 리스트가 아닌 hashable한 튜플을 넣어야 한다.
