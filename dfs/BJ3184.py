@@ -6,13 +6,13 @@ dx = (0, 0, -1, 1)
 dy = (1, -1, 0, 0)
 
 
+# 연결된 요소 모두 방문 처리, 방문한 점의 v,o 갯수 센다.
 def dfs(a, x, y):
     v = o = 0
     check[x][y] = True
-    ch = a[x][y]
-    if ch == 'v':
+    if a[x][y] == 'v':
         v += 1
-    elif ch == 'o':
+    elif a[x][y] == 'o':
         o += 1
     for k in range(4):
         nx, ny = x + dx[k], y + dy[k]
@@ -30,12 +30,11 @@ sheep = wolf = 0
 
 for i in range(r):
     for j in range(c):
-        if not check[i][j]:  # 영역 dfs => 영역 내의 v,o 수 세기
+        if a[i][j] != '#' and not check[i][j]:  # 영역 dfs => 영역 내의 v,o 수 세기
             v, o = dfs(a, i, j)
             if v >= o:
-                o = 0
+                wolf += v
             else:
-                v = 0
-            sheep += o
-            wolf += v
-print(sheep, wolf)
+                sheep += o
+
+print(f"{sheep} {wolf}")
