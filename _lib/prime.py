@@ -24,7 +24,7 @@ print(is_prime(17))
 
 
 def eratos(n):
-    check = [0] * (n + 1)  # n개 리스트 초기화
+    check = [False] * (n + 1)  # n개 리스트 초기화
     check[0] = check[1] = True  # [True, True, 0, 0, 0, 0, 0, 0, 0, 0]
     for i in range(2, n + 1):
         if not check[i]:  # 소수라면 배수를 모두 지운다
