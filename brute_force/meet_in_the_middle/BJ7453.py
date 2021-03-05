@@ -1,6 +1,5 @@
 # 합이 0인 네 정수
 import sys
-from bisect import bisect_right, bisect_left
 from collections import Counter
 
 n = int(sys.stdin.readline())
@@ -16,8 +15,10 @@ for i in range(n):
 
 ans = 0
 counter = Counter(second)
-for tpl in Counter(first).items():
-    ans += counter[-tpl[0]] * tpl[1]
+# for tpl in Counter(first).items(): # 추가 비용이 됨
+#    ans += counter[-tpl[0]] * tpl[1] # 중복되는 수가 많지 않아 효과가 적은 듯
+for num in first:
+    ans += counter[-num]
 print(ans)
 """ 파이썬은 이진 탐색보다 counter가 더 빠른 듯
 ans = 0
