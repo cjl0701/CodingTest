@@ -56,7 +56,7 @@ from itertools import permutations
 
 n = 3
 l = list(range(1, n + 1))  # [1,2,3]
-for p in permutations(l, n):
+for p in permutations(l, n):  # 정렬 안해도 모든 순열 만들어 낸다.
     print(' '.join(map(str, p)))
 
 data = ['A', 'B', 'C']
