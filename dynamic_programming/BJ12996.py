@@ -19,7 +19,7 @@ def f(n, a, b, c):
                     if i == j == k == 0:
                         continue
                     d[n][a][b][c] += f(n - 1, a - i, b - j, c - k)
-    d[n][a][b][c] %= MOD # 최대 MOD의 7배니까 한번에 나눠도 괜찮은 수
+        d[n][a][b][c] %= MOD # 최대 MOD의 7배니까 한번에 나눠도 괜찮은 수
     return d[n][a][b][c]
 
 
