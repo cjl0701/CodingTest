@@ -1,4 +1,5 @@
 # 사다리 조작
+# 후보를 추려 건너뛰기!
 n, m, h = map(int, input().split())
 arr = [[0] * (n + 1) for _ in range(h + 1)]
 for _ in range(m):
