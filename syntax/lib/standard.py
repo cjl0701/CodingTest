@@ -15,3 +15,14 @@ array = [('최재량', 29), ('최재림', 26), ('최장환', 56)]
 result = sorted(array, key=lambda t: t[1], reverse=True)  # 튜플의 1번 원소를 기준으로 제시
 result = sorted(array, key=lambda t: (t[1], t[0]), reverse=True)  # 키가 같을 경우, 우선순위까지 제공
 print(result)  # [('최장환', 56), ('최재량', 29), ('최재림', 26)]
+
+array = [('바나나', 2), ('사과', 5), ('당근', 3)]
+
+
+# 정렬 기준 제공
+def setting(data):
+    return data[1]
+
+
+result = sorted(array, key=setting)
+print(result)
