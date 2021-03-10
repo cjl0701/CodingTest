@@ -1,7 +1,7 @@
 # 우선순위큐: 우선순위 높은 놈이 먼저 나온다. (default: 작은 값이 우선순위가 높다)
 # push,pop: O(log n)
-import heapq # 일반 값을 넣으면 값을 기준으로 heap을 만들어 준다.
-import queue # Priority Queue 객체
+import heapq  # 일반 값을 넣으면 값을 기준으로 heap을 만들어 준다.
+import queue  # Priority Queue 객체
 
 h = []  # heap 자체인 list
 heapq.heappush(h, 7)
@@ -51,4 +51,5 @@ print(pq.get())  # 1
 pq2.put((2, "apple"))
 pq2.put((0, "banana"))
 print(pq2.get())  # (0, 'banana')
+print(pq2.get()[1])  # apple
 # iterable하지 않다. 그냥 get으로 하나하나 뺀다.

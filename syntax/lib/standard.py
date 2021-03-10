@@ -13,4 +13,5 @@ reverse_result = sorted([9, 1, 8, 5, 4], reverse=True)  # [9, 8, 5, 4, 1]
 # sorted() with key: 정렬 기준을 람다식으로 명시
 array = [('최재량', 29), ('최재림', 26), ('최장환', 56)]
 result = sorted(array, key=lambda t: t[1], reverse=True)  # 튜플의 1번 원소를 기준으로 제시
+result = sorted(array, key=lambda t: (t[1], t[0]), reverse=True)  # 키가 같을 경우, 우선순위까지 제공
 print(result)  # [('최장환', 56), ('최재량', 29), ('최재림', 26)]
