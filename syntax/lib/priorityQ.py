@@ -1,9 +1,7 @@
 # 우선순위큐: 우선순위 높은 놈이 먼저 나온다. (default: 작은 값이 우선순위가 높다)
 # push,pop: O(log n)
-import heapq
-
-# 일반 값을 넣으면 값을 기준으로 heap을 만들어 준다.
-import queue
+import heapq # 일반 값을 넣으면 값을 기준으로 heap을 만들어 준다.
+import queue # Priority Queue 객체
 
 h = []  # heap 자체인 list
 heapq.heappush(h, 7)
@@ -12,7 +10,6 @@ heapq.heappush(h, 6)
 print(h)  # [5, 7, 6]
 print(heapq.heappop(h))  # 5
 print(heapq.heappop(h))  # 6
-print(heapq.heappop(h))  # 7
 
 # 튜플을 넣으면, 첫번째 요소는 우선순위 값, 두번째 요소는 데이터
 h = []
@@ -42,7 +39,7 @@ max_h = [(-k, v) for k, v in h]
 heapq.heapify(max_h)
 print(max_h)  # [(-10, 'Do not study'), (-7, 'Pray!'), (-1, 'Enjoy!'), (-4, 'Eat!'), (-3, 'Go to home')]
 
-# 리스트를 최소힙으로써 작동하게 하는 것이 아닌, 우선순위 큐 자체 생성
+"""queue.PriorityQueue : 리스트를 최소힙으로써 작동하게 하는 것이 아닌, 우선순위 큐 자체 생성"""
 pq = queue.PriorityQueue()
 pq2 = queue.PriorityQueue(maxsize=8)  # 최대 크기 8로 잡음
 
