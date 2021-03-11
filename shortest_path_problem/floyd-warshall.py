@@ -4,11 +4,10 @@ INF = int(1e9)  # 무한을 의미하는 값으로 10억을 설정
 n = int(input())
 m = int(input())
 # 2차원 리스트(그래프 표현)를 만들고, 무한으로 초기화
-graph = [[INF] * (n + 1) for _ in range(n + 1)]  # 정점은 1번부터 시작
-for a in range(1, n + 1):
-    for b in range(1, n + 1):
-        if a == b:
-            graph[a][b] = 0
+graph = [[INF] * (n + 1) for _ in range(n + 1)]  # 플로이드 워셜은 인접 행렬에 기록
+for v in range(1, n + 1):
+    graph[v][v] = 0
+
 # 각 간선에 대한 정보를 입력 받아, 그 값으로 초기화
 for _ in range(m):
     a, b, c = map(int, input().split())
