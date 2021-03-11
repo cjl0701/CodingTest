@@ -1,7 +1,7 @@
 import heapq
 
 n, m, c = map(int, input().split())
-INF = 1e9
+INF = int(1e9)
 graph = [[] for _ in range(n + 1)]  # 다익스트라는 연결리스트
 for _ in range(m):
     x, y, z = map(int, input().split())
