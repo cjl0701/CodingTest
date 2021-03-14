@@ -44,4 +44,21 @@ tet = [
     [(1, 1, 1), (1, 1), (1, 2, 2), (3, 1)],
     [(1, 1, 1), (1, 3), (2, 2, 1), (1, 1)]
 ]
+
+# 모든 자리에 놓아본다.
+for idx in range(c - 1):
+    # 각 케이스별로 가능한지 체크
+    for case in tet[p]:
+        length = len(case)
+        if idx + length > c:  # 범위 넘어감
+            continue
+        # 높이 차가 맞아야 한다.
+        for i in range(length - 1):
+            if case[i] - case[i + 1] != a[idx + i] - a[idx + i + 1]:
+                break
+        else:
+            ans += 1
+
+if p == 1:
+    ans += c
 """
