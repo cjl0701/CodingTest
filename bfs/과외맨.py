@@ -1,4 +1,4 @@
-# 과외맨
+# BJ 5213
 # 메인 함수에 실수(or 초반 착각)가 있을 수도 있다.. 주석 달아 설계를 해야 실수를 덜한다.
 from collections import deque
 
@@ -18,7 +18,7 @@ q = deque()
 q.append((0, 0))
 d[0][0] = 1
 
-
+# 수로 규칙 찾기보다 그림으로 규칙 찾기가 좋다
 def num(x, y):
     no = n * x - x // 2
     return no + y + 1
