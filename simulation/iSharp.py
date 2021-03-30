@@ -23,6 +23,7 @@ for i in range(1, len(strings)):
             s += slist[-1]
         slist.pop()
     print(s + " " + "".join(slist) + ";")
+
 # string = input().split()
 # for i in range(1, len(string)):
 #     type = []
