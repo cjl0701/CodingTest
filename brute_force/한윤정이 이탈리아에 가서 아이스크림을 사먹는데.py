@@ -1,5 +1,6 @@
 n, m = map(int, input().split())
 # 단순한 완전 탐색이면 중첩 for문
+# 백트래킹이라고 항상 빠른건 아니다. 체크 과정이 길면 x. 걍 끝에서 컷
 bad_combi = [[False] * (n + 1) for _ in range(n + 1)]
 for _ in range(m):
     a, b = map(int, input().split())
