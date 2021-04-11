@@ -1,4 +1,4 @@
-# 국영수
+# BJ10825
 n = int(input())
 students = [list(input().split()) for _ in range(n)]
 students.sort(key=lambda l: (-int(l[1]), int(l[2]), -int(l[3]), l[0]))

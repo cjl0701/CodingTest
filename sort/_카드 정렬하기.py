@@ -1,4 +1,4 @@
-# 카드 정렬하기
+# BJ1715
 import heapq
 
 n = int(input())

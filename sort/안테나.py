@@ -1,4 +1,4 @@
-# 안테나
+# BJ18310
 n = int(input())
 house = list(map(int, input().split()))
 house.sort()
