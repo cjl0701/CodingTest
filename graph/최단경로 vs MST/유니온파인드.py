@@ -15,9 +15,9 @@ def find_parent(parent_table, e):
 def union_parent(parent_table, a, b):
     s1, s2 = find_parent(parent_table, a), find_parent(parent_table, b)
     if s1 < s2:  # 대표의 번호가 작은 쪽에 맞추는 게 관례
-        parent_table[b] = s1
+        parent_table[s2] = s1
     else:
-        parent_table[a] = s2
+        parent_table[s1] = s2
 
 
 parent_table = [i for i in range(5)]
