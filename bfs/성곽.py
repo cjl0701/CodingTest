@@ -1,3 +1,4 @@
+# https://www.acmicpc.net/problem/2234
 """벽 하나 부수기 => 완전 탐색으로 하나하나 부숴본다"""
 # bfs 기록해둔 것 활용하기 위해, 영역 번호와 넓이 기록
 from collections import deque
