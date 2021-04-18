@@ -1,53 +1,57 @@
-# BJ 2234
-# 틀에 갇혀 있었다..
+"""벽 하나 부수기 => 완전 탐색으로 하나하나 부숴본다"""
+# bfs 기록해둔 것 활용하기 위해, 영역 번호와 넓이 기록
 from collections import deque
 
-# 파괴한 구역이 다르면 어떡해? 어떻게 기록해?
-# 벽 부수고 이동하기2 => (i,j,부순 벽 갯수)
-# 성곽 => (i,j,부순 벽 갯수, 연결 요소) 뚫은 곳이 같은 연결 요소 일수도..
-# 그냥 하나씩 없애본다(완탐) - 이전 넓이 활용. 매번 구하는 건 낭비
-dx = (0, -1, 0, 1)
-dy = (-1, 0, 1, 0)
-m,n = map(int, input().split())
-a = [list(map(int, input().split())) for _ in range(n)]
 
-
-def bfs(destrict, no, i, j):
-    destrict[i][j] = no
+def bfs(i, j, sect, sect_no):
+    # check = [[False] * m for _ in range(n)] 있는 정보 활용해
+    sect[i][j] = sect_no  # 영역 번호 새기기
     q = deque()
     q.append((i, j))
-    cnt = 0
+    space = 0
+
     while q:
         x, y = q.popleft()
-        cnt += 1
+        space += 1  # 넓이 측정
+        # 4 방향으로 이동
         for k in range(4):
-            if (a[x][y] & (1 << k)) == 0:  # 이 방향이 벽이 아니면
-                nx, ny = x + dx[k], y + dy[k]
-                if 0 <= nx < n and 0 <= ny < m and destrict[nx][ny] == -1:
-                    destrict[nx][ny] = no
-                    q.append((nx, ny))
-    return cnt
+            # 이동하려는 방향에 벽이 있으면 불가
+            if a[x][y] & (1 << k) > 0:
+                continue
+            nx, ny = x + dx[k], y + dy[k]
+            if 0 <= nx < n and 0 <= ny < m and sect[nx][ny] == -1:
+                sect[nx][ny] = sect_no  # 영역 번호 새기기
+                q.append((nx, ny))
+    return space
 
 
-ans1 = ans2 = ans3 = 0
-destrict = [[-1] * m for _ in range(n)]
+dx = (0, -1, 0, 1)  # 동북서남
+dy = (-1, 0, 1, 0)
+
+m, n = map(int, input().split())
+a = [list(map(int, input().split())) for _ in range(n)]
+sect = [[-1] * m for _ in range(n)]
+sect_no = -1  # 0부터 센다
 area = []
 
-for i in range(n):
-    for j in range(m):
-        if destrict[i][j] == -1:
-            area.append(bfs(destrict, ans1, i, j))
-            ans2 = max(ans2, area[-1])
-            ans1 += 1
+for x in range(n):
+    for y in range(m):
+        if sect[x][y] == -1:
+            sect_no += 1
+            area.append(bfs(x, y, sect, sect_no))
 
-# 1,2번 풀이 과정에 얻은 정보를 3번 문제에 활용하기
-for i in range(n):
-    for j in range(m):
+print(sect_no + 1)
+ans = max(area)
+print(ans)
+
+# 벽을 하나씩 부숴 두 영역을 합친다.
+for x in range(n):
+    for y in range(m):
         for k in range(4):
-            if (a[i][j] & (1 << k)) != 0:  # 벽이면 뚫어본다
-                ni, nj = i + dx[k], j + dy[k]
-                if 0 <= ni < n and 0 <= nj < m and destrict[i][j] != destrict[ni][nj]:
-                    ans3 = max(ans3, area[destrict[i][j]] + area[destrict[ni][nj]])
-print(ans1)
-print(ans2)
-print(ans3)
+            # 벽이 있으면 벽 너머의 두 영역을 합친다.
+            if a[x][y] & (1 << k) > 0:
+                nx, ny = x + dx[k], y + dy[k]
+                if 0 <= nx < n and 0 <= ny < m:
+                    if sect[x][y] != sect[nx][ny]:
+                        ans = max(ans, area[sect[x][y]] + area[sect[nx][ny]])
+print(ans)
