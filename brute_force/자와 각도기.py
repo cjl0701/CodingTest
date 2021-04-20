@@ -1,47 +1,17 @@
-# BJ 2916
-""" 주어진 예제로 깊이있게 고민 + 주어지지 않은 극단적인 값으로 고민
-    틀린 이유
-    문제에 대한 '고찰' 부족. 그대로 받아들일 것이 아니라 생각 필요
-    |30-70|만 고려. -40 => 320으로 바꿀 생각을 못 함..
- """
-
-# 어려운 지점: 새로운 값이 추가되면 base가 달라지는데? => 추가해서 반영하면 된다!
-n, k = map(int, input().split())
+# https://www.acmicpc.net/problem/2916
+"""기준을 잡으면 중복을 줄일 수 있다."""
+input()
 base = list(map(int, input().split()))
-# 가능한 각을 모두 구한다.
-d = [False] * 360
-# 모든 새로운 각은 base를 기반으로 한다
-d[0] = True
-for b in base:  # 새로 추가된 원소가 반영된다
-    for x in range(360):
-        if d[x]:
-            for new in [(b + x) % 360, (b - x + 360) % 360]:
-                if not d[new]:
-                    d[new] = True
-                    base.append(new)
-# 정답 출력
-for x in map(int, input().split()):
-    print("YES" if d[x] else "NO")
+know = [False] * 360
+know[0] = True  # 자연스럽게 base 기록 가능
+""" {모든 아는 각과 모든 아는 각 조합}은 너무 많다. 중복을 줄이자(순서를 부여한다던지)"""
+# 아는 값(base)를 기준으로 모든 조합을 만들어보면 충분하다.
+for b in base:
+    # b로 가능한 모든 것 다 만들기
+    for _ in range(360):  # 새로운 값이 1씩 증가하며 반영된다고 쳐도 한 바퀴 돌 수 있다.
+        for x in range(360):
+            if know[x]:
+                know[(b + x) % 360] = know[(b - x + 360) % 360] = True
 
-# n, k = map(int, input().split())
-# prev = list(map(int, input().split()))
-# degree = list(map(int, input().split()))
-# table = [False] * 361
-# for p in prev:
-#     table[p] = True
-#
-# next = []
-# while True:
-#     for i in range(len(prev)):
-#         for j in range(len(prev)):
-#             for num in ((prev[i] + prev[j]) % 360, (prev[i] - prev[j] + 360) % 360):
-#                 if not table[num]:
-#                     table[num] = True
-#                     next.append(num)
-#     if next:
-#         prev += next
-#         next = []
-#     else:
-#         break
-# for d in degree:
-#     print("YES" if table[d] else "NO")
+for num in map(int, input().split()):
+    print("YES" if know[num] else "NO")
