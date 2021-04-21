@@ -1,12 +1,13 @@
-# BJ 3197
+# https://www.acmicpc.net/problem/3197
 from collections import deque
+import sys
 
 """map이 변할 때, bfs를 이어 실행해 중복을 줄이는 방법 => nq"""
 
 dx = (0, 0, -1, 1)
 dy = (1, -1, 0, 0)
 r, c = map(int, input().split())
-a = [list(input()) for _ in range(r)]
+a = [list(sys.stdin.readline().rstrip()) for _ in range(r)]
 swan = []
 water = deque()
 nwater = deque()
@@ -27,7 +28,8 @@ q.append((swan[0][0], swan[0][1]))
 scheck[swan[0][0]][swan[0][1]] = True
 day = 1
 
-# 매회 얼음을 녹인 후 bfs로 만날 수 있는지 확인
+# 얼음이 녹는 것과 백조가 이동하는 것이 별개로 움직임
+# 녹이고->움직인다
 while True:
     # 얼음인 부분을 큐에 넣고 녹인 후 다음 순서로 넣는다
     while water:
@@ -56,7 +58,6 @@ while True:
         print(day)
         break
     day += 1
-    water = nwater
-    nwater = deque()
-    q = nq
-    nq = deque()
+    water, nwater = nwater, water
+    q, nq = nq, q
+
