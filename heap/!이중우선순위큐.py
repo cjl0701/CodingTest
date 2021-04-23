@@ -1,0 +1,24 @@
+# https://programmers.co.kr/learn/courses/30/lessons/42628
+# 리스트의 remove()가 있구나..(값을 지운다) 순서는 중요치 않으니 이렇게해도 되는구나..
+import heapq
+
+
+def solution(operations):
+    min_h = []
+    max_h = []
+    for op in operations:
+        if op[0] == "I":
+            heapq.heappush(min_h, int(op[2:]))
+            heapq.heappush(max_h, -1 * int(op[2:]))  # 최대힙을 만드려면 최소힙에 음수로 넣어야 됨
+        elif min_h:
+            if op[2] == '-':
+                max_h.remove(-heapq.heappop(min_h))
+            else:
+                min_h.remove(-heapq.heappop(max_h))
+
+    return [0, 0] if not min_h else [heapq.heappop(max_h) * -1, heapq.heappop(min_h)]
+
+
+""" remove하면 힙이 망가진다? 
+    마지막 레벨에 위치하기도 하고, 삭제하면 빈칸이 아니라 당겨진다.
+    삽입 시 맨 아래서 올라가며 위치를 잡고, 삭제 시 맨 위에서 내려가며 위치 잡는다. 그래서 괜찮다. """
