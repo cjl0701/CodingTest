@@ -1,4 +1,4 @@
-# 링크와 스타트
+# BJ 15661
 def go(idx, s, first, second):
     if idx == n:
         if len(first) == 0 or len(second) == 0:

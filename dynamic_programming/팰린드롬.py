@@ -1,4 +1,4 @@
-# 팰린드롬? https://www.acmicpc.net/problem/10942
+# https://www.acmicpc.net/problem/10942
 # 시간 초과 ->IO, recursive error -> setrecursionlimit
 import sys
 

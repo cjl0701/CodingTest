@@ -1,4 +1,4 @@
-# Acka
+# BJ 12996
 # top down은 불필요한 연산을 안해서 더 빠를 것
 MOD = 1000000007
 s, x, y, z = map(int, input().split())

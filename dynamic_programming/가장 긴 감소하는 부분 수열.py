@@ -1,4 +1,4 @@
-# 가장 긴 감소하는 부분 수열  https://www.acmicpc.net/problem/11722
+# https://www.acmicpc.net/problem/11722
 n = int(input())
 arr = list(map(int, input().split()))
 d = [1] * n

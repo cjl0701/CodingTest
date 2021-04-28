@@ -1,4 +1,4 @@
-# 뮤탈리스크
+# BJ 12869
 from itertools import permutations
 
 n = int(input())

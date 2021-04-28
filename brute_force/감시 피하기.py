@@ -1,4 +1,4 @@
-# 감시 피하기
+# BJ 18428
 from itertools import combinations
 
 dx = (0, 0, -1, 1)

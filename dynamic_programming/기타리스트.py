@@ -1,4 +1,4 @@
-# 기타리스트 https://www.acmicpc.net/problem/1495
+# https://www.acmicpc.net/problem/1495
 # 이차 확산표 => 1의 확산
 n, s, m = map(int, input().split())
 v = list(map(int, input().split()))

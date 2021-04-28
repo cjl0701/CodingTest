@@ -1,4 +1,4 @@
-# 가장 긴 바이토닉 부분 수열 https://www.acmicpc.net/problem/11054
+# https://www.acmicpc.net/problem/11054
 n = int(input())
 arr = list(map(int, input().split()))
 di = [1] * n  # i에서 끝나는 가장 긴 증가 부분 수열
