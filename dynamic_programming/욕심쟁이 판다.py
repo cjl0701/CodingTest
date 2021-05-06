@@ -3,7 +3,7 @@
 # 문제의 조건, 규칙을 적극 활용하자.. 알고 있는 유형으로만 끼워 맞추려고 하지말고..
 import sys
 
-# sys.setrecursionlimit(500 * 500)
+# sys.setrecursionlimit(500 * 500) 계산상으로는 이건데.. 그냥 널널하게 잡자..
 sys.setrecursionlimit(10 ** 8)
 dx = (0, 0, -1, 1)
 dy = (1, -1, 0, 0)
