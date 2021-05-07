@@ -1,8 +1,32 @@
 # https://programmers.co.kr/learn/courses/30/lessons/42628
-# 리스트의 remove()가 있구나..(값을 지운다) 순서는 중요치 않으니 이렇게해도 되는구나..
 import heapq
 
 
+# O(N^2).. 다시 풀자 O(NlogN)으로
+def solution(operations):
+    element = 0  # 동기화를 위한 원소 갯수 표시
+    maxh = []  # 음수로 넣는다
+    minh = []
+    for op in operations:
+        if op[0] == "D":
+            if element > 0:  # 최대 삭제
+                element -= 1
+                if op[2] == '-':
+                    heapq.heappop(minh)
+                else:
+                    heapq.heappop(maxh)
+            if element == 0:
+                maxh.clear()
+                minh.clear()
+        else:  # 추가
+            num = int(op[2:])
+            heapq.heappush(maxh, -num)
+            heapq.heappush(minh, num)
+            element += 1
+    return [0, 0] if element == 0 else [-heapq.heappop(maxh), heapq.heappop(minh)]
+
+
+"""
 def solution(operations):
     min_h = []
     max_h = []
@@ -17,7 +41,7 @@ def solution(operations):
                 min_h.remove(-heapq.heappop(max_h))
 
     return [0, 0] if not min_h else [heapq.heappop(max_h) * -1, heapq.heappop(min_h)]
-
+"""
 
 """ remove하면 힙이 망가진다? 
     마지막 레벨에 위치하기도 하고, 삭제하면 빈칸이 아니라 당겨진다.
