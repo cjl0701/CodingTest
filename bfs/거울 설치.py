@@ -1,49 +1,59 @@
 # https://www.acmicpc.net/problem/2151
 """ 무엇을 정점, 간선으로 볼 것인가 """
-""" 주어진 테케는 맞았으나 예외 처리를 안했다. 실제 시험이었다면 틀린거다..
+""" 포용적으로 짜지 않아서 예외에 걸렸다.
     - a[nx][ny]=='#'일 때 탈출했다면 시작점에 다시 갈때 탈출할 수도 있다.
     - 예제만 봐서 벽이 있을 경우를 고려x
 """
-import sys
 from collections import deque
 
 n = int(input())
-a = [list(sys.stdin.readline().rstrip()) for _ in range(n)]
-nodes = []
-start = end = -1
+a = [input() for _ in range(n)]
+door = []
+node = dict()
 for i in range(n):
     for j in range(n):
-        if a[i][j] in '!#':
-            if a[i][j] == '#':
-                if start == -1:
-                    start = len(nodes)
-                else:
-                    end = len(nodes)
-            a[i][j] = len(nodes)
-            nodes.append((i, j))
+        if a[i][j] in '*.':
+            continue
+        if a[i][j] == '#':
+            door.append((i, j))
+        node[(i, j)] = len(node)
 
-dx = (0, 0, -1, 1)
-dy = (1, -1, 0, 0)
-graph = [[] for _ in range(len(nodes))]
-for frm in range(len(nodes)):
-    x, y = nodes[frm]
-    for k in range(4):  # 4 방향 for문 돌릴거면 이렇게..
-        nx, ny = x + dx[k], y + dy[k]
-        while 0 <= nx < n and 0 <= ny < n:
-            if a[nx][ny] == '*':
-                break
-            if type(a[nx][ny]) == int:
-                graph[frm].append(a[nx][ny])
-            nx, ny = nx + dx[k], ny + dy[k]
+graph = [list() for _ in range(len(node))]
+for x, y in node.keys():
+    no = node[(x, y)]
+    # 세로 - 이전
+    for i in range(x - 1, -1, -1):
+        if a[i][y] == '*':
+            break
+        if a[i][y] in '#!':
+            graph[no].append(node[(i, y)])
+    # 세로 - 이후
+    for i in range(x + 1, n):
+        if a[i][y] == '*':
+            break
+        if a[i][y] in '#!':
+            graph[no].append(node[(i, y)])
+    # 가로 - 이전
+    for j in range(y - 1, -1, -1):
+        if a[x][j] == '*':
+            break
+        if a[x][j] in '#!':
+            graph[no].append(node[(x, j)])
+    # 가로 - 이후
+    for j in range(y + 1, n):
+        if a[x][j] == '*':
+            break
+        if a[x][j] in '#!':
+            graph[no].append(node[(x, j)])
 
 q = deque()
-q.append(start)
-d = [-1] * len(nodes)
-d[start] = 0
+q.append(node[door[0]])
+d = [-1] * len(node)
+d[node[door[0]]] = 0
 while q:
     now = q.popleft()
     for next in graph[now]:
         if d[next] == -1:
             d[next] = d[now] + 1
             q.append(next)
-print(d[end] - 1)
+print(d[node[door[1]]] - 1)
