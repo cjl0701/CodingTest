@@ -1,60 +1,36 @@
 # https://www.acmicpc.net/problem/8982
-"""개선: 같은 선분에 대해 여러번 처리 => 선분 단위로 그룹 지어 처리"""
+"""
+직관적으로, 점 단위로 처리하면 O(40000^2)이 걸린다. => 더 줄여야 한다.
+대신 선분 단위로 처리하면 O(5000^2)이다.
+"""
 import sys
 
-n = int(input())
-n -= 2
-n //= 2
-index = dict()
+n = (int(input()) - 2) // 2
+sector_no = dict()
 top = [0] * n
 bottom = [0] * n
-width = [1] * n
-point = [tuple() for _ in range(n)]
-
+width = [0] * n
 sys.stdin.readline()
 for i in range(n):
-    c1, r = map(int, sys.stdin.readline().split())
-    c2, r = map(int, sys.stdin.readline().split())
-    index[(c1, c2)] = i
-    bottom[i] = r
-    width[i] = c2 - c1
+    start = int(sys.stdin.readline().split()[0])
+    end, bot = map(int, sys.stdin.readline().split())
+    sector_no[(start, end)] = i
+    bottom[i] = bot
+    width[i] = end - start
 sys.stdin.readline()
 
 for _ in range(int(input())):
-    c1, r1, c2, r2 = map(int, sys.stdin.readline().split())
-    hole = index[(c1, c2)]
-    # 구멍 내기 -> 수면 높이 달라짐
-    top[hole] = r1
-    surface = r1
-    for i in range(hole - 1, -1, -1):
-        surface = min(surface, bottom[i])
-        top[i] = max(surface, top[i])
-    surface = r1
-    for i in range(hole + 1, n):
-        surface = min(surface, bottom[i])
-        top[i] = max(surface, top[i])
+    start, surface, end, temp2 = map(int, sys.stdin.readline().split())
+    no = sector_no[(start, end)]
+    for left in range(no, -1, -1):
+        surface = min(surface, bottom[left])
+        top[left] = max(surface, top[left])
+    surface = bottom[no]
+    for right in range(no + 1, n):
+        surface = min(surface, bottom[right])
+        top[right] = max(surface, top[right])
 
 ans = 0
-for i in range(n):
-    if bottom[i] - top[i] > 0:
-        ans += (bottom[i] - top[i]) * width[i]
+for no in range(n):
+    ans += width[no] * (bottom[no] - top[no])
 print(ans)
-""" 예외
-14
-0 0
-0 5
-1 5
-1 3
-2 3
-2 4
-3 4
-3 2
-5 2
-5 4
-6 4
-6 3
-8 3
-8 0
-1
-1 3 2 3
-"""
