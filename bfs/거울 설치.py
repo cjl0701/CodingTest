@@ -7,53 +7,39 @@
 from collections import deque
 
 n = int(input())
-a = [input() for _ in range(n)]
+a = [list(input()) for _ in range(n)]
 door = []
-node = dict()
+nodes = list()
 for i in range(n):
     for j in range(n):
         if a[i][j] in '*.':
             continue
         if a[i][j] == '#':
-            door.append((i, j))
-        node[(i, j)] = len(node)
+            door.append(len(nodes))  # 굳이 cnt 변수 유지할 필요 x
+        a[i][j] = len(nodes)  # 굳이 dict로 좌표에 해당하는 번호를 찾을 필요 x. 배열에 표시해도 된다.
+        nodes.append((i, j))  # 노드로 볼 것만 저장
 
-graph = [list() for _ in range(len(node))]
-for x, y in node.keys():
-    no = node[(x, y)]
-    # 세로 - 이전
-    for i in range(x - 1, -1, -1):
-        if a[i][y] == '*':
-            break
-        if a[i][y] in '#!':
-            graph[no].append(node[(i, y)])
-    # 세로 - 이후
-    for i in range(x + 1, n):
-        if a[i][y] == '*':
-            break
-        if a[i][y] in '#!':
-            graph[no].append(node[(i, y)])
-    # 가로 - 이전
-    for j in range(y - 1, -1, -1):
-        if a[x][j] == '*':
-            break
-        if a[x][j] in '#!':
-            graph[no].append(node[(x, j)])
-    # 가로 - 이후
-    for j in range(y + 1, n):
-        if a[x][j] == '*':
-            break
-        if a[x][j] in '#!':
-            graph[no].append(node[(x, j)])
+graph = [list() for _ in range(len(nodes))]
+dx = (0, 0, -1, 1)
+dy = (1, -1, 0, 0)
+for x, y in nodes:
+    for k in range(4):  # 현재 점으로부터 4방향으로 이동하고 싶으면 이렇게 일반화..
+        nx, ny = x + dx[k], y + dy[k]
+        while 0 <= nx < n and 0 <= ny < n:
+            if a[nx][ny] == '*':
+                break
+            if type(a[nx][ny]) == int:
+                graph[a[x][y]].append(a[nx][ny])
+            nx, ny = nx + dx[k], ny + dy[k]
 
 q = deque()
-q.append(node[door[0]])
-d = [-1] * len(node)
-d[node[door[0]]] = 0
+q.append(door[0])
+d = [-1] * len(nodes)
+d[door[0]] = 0
 while q:
     now = q.popleft()
     for next in graph[now]:
         if d[next] == -1:
             d[next] = d[now] + 1
             q.append(next)
-print(d[node[door[1]]] - 1)
+print(d[door[1]] - 1)
