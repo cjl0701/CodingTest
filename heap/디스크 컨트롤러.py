@@ -24,3 +24,23 @@ def solution(jobs):
             cur_time += process[0]
             answer += (cur_time - process[1])
     return answer // n
+
+""" 큐 안 쓴 버전
+def solution(jobs):
+    answer = 0
+    jobs.sort(key=lambda job: job[0])  # ==jobs.sort(). 요청 시간을 기준으로 정렬
+    cur_t = 0
+    h = []
+    idx = 0
+    while h or idx < len(jobs):
+        while idx < len(jobs) and cur_t >= jobs[idx][0]:
+            heapq.heappush(h, (jobs[idx][1], jobs[idx][0]))  # 튜플의 정렬기준은 앞에서부터
+            idx += 1
+        if not h:
+            cur_t = jobs[idx][0]  # 시간 갱신
+        else:
+            work_t, req_t = heapq.heappop(h)
+            cur_t += work_t
+            answer += cur_t - req_t
+    return answer // len(jobs)
+"""
