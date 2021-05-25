@@ -3,6 +3,7 @@
 1. 어떤 예외 사항이 있는지 모르니 좀 더 포용적으로 구성하자
 2. bfs를 이용하면 밟은 곳 또 안 밟는다. 최악의 경우 모든 칸. 충분히 효과적이다.
 """
+# 완전 탐색으로 모든 경우를 구할 필요 X, 칸에 도착하는 최소 이동만 알면 된다
 from collections import deque
 
 n, m = map(int, input().split())
@@ -19,7 +20,7 @@ while q:
     cur = q.popleft()
     for k in range(1, 7):
         next = cur + k
-        if next > 100: # 뱀 밟은 경우 continue하면 틀린다. 어떤 예외인지는 모르겠다.
+        if next > 100:  # 뱀 밟은 경우 continue하면 틀린다. 그게 더 빠른 경우가 있나보다
             continue
         next = move[next]
         if d[next] == -1:
