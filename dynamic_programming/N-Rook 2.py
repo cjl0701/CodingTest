@@ -3,34 +3,34 @@ n = int(input())
 m = int(input())
 k = int(input())
 
+""" 핵심 skill
+DP - 문제의 크기를 줄인다.
+중복 회피를 위한 case 쪼개기
 """
-DP로 문제의 크기를 줄여가 본다.
-현재 = 이전 * 현재를 만드는 경우의 수
-"""
-# 변하는 것: r,c,k
-# 케이스 나누기 복잡 => 좀 더 큰 관점으로, 임의의 기준을 잡는다.
+# 현재 = 이전 * 현재를 만드는 경우의 수
+# 변하는 것: n,m,k
 
+# nxm 크기의 체스판에 룩 k를 놓을 수 있는 경우의 수
 d = [[[-1] * (k + 1) for _ in range(m + 1)] for _ in range(n + 1)]
 
 
-# r,c:선택할 수 있는 칸의 갯수 / x:남은 룩의 갯수
-def f(r, c, x):
+# nxm 크기의 체스판에 룩 k를 놓을 수 있는 경우의 수
+def f(n, m, k):
     # end point 이자 base case
-    if x == 0:
-        return 1
-    if r <= 0 or c <= 0 or x < 0:
+    if n < 0 or m < 0 or k < 0:
         return 0
-    if d[r][c][x] == -1:
-        d[r][c][x] = 0
+    if k == 0:
+        return 1
+    if d[n][m][k] == -1:
         # 0개 놓는 경우
-        d[r][c][x] += f(r - 1, c, x)
-        # 1개 놓는 경우
-        d[r][c][x] += f(r - 1, c - 1, x - 1) * c  # 위에서 공격 받지 않을 때
-        d[r][c][x] += f(r - 2, c - 1, x - 2) * c * (r - 1)  # 위에서 공격 받을 때
+        d[n][m][k] += f(n - 1, m, k)
+        # 1개 놓는 경우 - 중복 회피를 위해 처음부터 case를 나눠서 따로 구한다
+        d[n][m][k] += f(n - 1, m - 1, k - 1) * m  # 위에서 공격 받지 않을 때
+        d[n][m][k] += f(n - 2, m - 1, k - 2) * m * (n - 1)  # 위에서 공격 받을 때
         # 2개 놓는 경우
-        d[r][c][x] += f(r - 1, c - 2, x - 2) * c * (c - 1) // 2
-        d[r][c][x] %= 1000001
-    return d[r][c][x]
+        d[n][m][k] += f(n - 1, m - 2, k - 2) * m * (m - 1) // 2
+        d[n][m][k] %= 1000001
+    return d[n][m][k]
 
 
 print(f(n, m, k))
