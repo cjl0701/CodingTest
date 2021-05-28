@@ -1,7 +1,39 @@
+"""
+그리디: 소요 시간이 짧은 것부터 처리하면 전체 대기 시간이 최소다. (처리 시간은 같다)
+=> 최소 힙
+"""
+
 import heapq
-from collections import deque
 
 
+def solution(jobs):
+    answer = 0  # ""(현재 시간 - 요청 시간) + 작업 시간" 의 평균
+    waiting_q = []
+    cur_t = 0
+    idx = 0
+    n = len(jobs)
+
+    # 먼저 요청이 들어온 작업부터 시작한다 => 요청 시간 별 정렬
+    jobs.sort(key=lambda job: job[0])  # jobs.sort() 기본 값이 튜플 앞 놈.
+
+    while idx < n or waiting_q:
+        # 작업 요청이 현재 시간보다 작으면 대기
+        while idx < n and jobs[idx][0] <= cur_t:
+            heapq.heappush(waiting_q, (jobs[idx][1], jobs[idx][0]))  # 튜플의 정렬 기준은 기본값이 앞놈
+            idx += 1
+        # 대기 큐에 있는 것 처리
+        if waiting_q:
+            time, req_t = heapq.heappop(waiting_q)
+            answer += (cur_t - req_t) + time
+            cur_t += time
+        # 큐에 아무것도 없는데 시간이 안돼서 진행 못하는 경우
+        else:
+            cur_t = jobs[idx][0]
+
+    return answer // n
+
+
+""" 진짜 큐 쓴 버전
 def solution(jobs):
     n = len(jobs)
     answer = 0
@@ -24,23 +56,4 @@ def solution(jobs):
             cur_time += process[0]
             answer += (cur_time - process[1])
     return answer // n
-
-""" 큐 안 쓴 버전
-def solution(jobs):
-    answer = 0
-    jobs.sort(key=lambda job: job[0])  # ==jobs.sort(). 요청 시간을 기준으로 정렬
-    cur_t = 0
-    h = []
-    idx = 0
-    while h or idx < len(jobs):
-        while idx < len(jobs) and cur_t >= jobs[idx][0]:
-            heapq.heappush(h, (jobs[idx][1], jobs[idx][0]))  # 튜플의 정렬기준은 앞에서부터
-            idx += 1
-        if not h:
-            cur_t = jobs[idx][0]  # 시간 갱신
-        else:
-            work_t, req_t = heapq.heappop(h)
-            cur_t += work_t
-            answer += cur_t - req_t
-    return answer // len(jobs)
 """
