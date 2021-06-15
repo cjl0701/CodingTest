@@ -8,47 +8,42 @@ from collections import deque
 
 dx = (0, 0, -1, 1)
 dy = (-1, 1, 0, 0)
-n, l, r = map(int, input().split())
-a = [list(map(int, input().split())) for _ in range(n)]
 
-
-# 이렇게 하면 check도 바로 연동됨
-def bfs(a, l, r):
-    n = len(a)
-    check = [[False] * n for _ in range(n)]
+# 한번에 bfs를 돌리면 check를 연동해서 쓸 수 있다.
+def bfs(a, min_diff, max_diff):
     moved = False
+    check = [[False] * n for _ in range(n)]
+    q = deque()
     for i in range(n):
         for j in range(n):
-            if not check[i][j]:
-                q = deque()
-                q.append((i, j))
-                check[i][j] = True
-                union = []
-                population = 0
-                while q:
-                    x, y = q.popleft()
-                    union.append((x, y))
-                    population += a[x][y]
-                    for k in range(4):
-                        nx, ny = x + dx[k], y + dy[k]
-                        if 0 <= nx < n and 0 <= ny < n and not check[nx][ny]:
-                            if l <= abs(a[x][y] - a[nx][ny]) <= r:
-                                check[nx][ny] = True
-                                q.append((nx, ny))
+            if check[i][j]:
+                continue
+            q.append((i, j))
+            check[i][j] = True
+            nations = [(i, j)]  # list((x, y)) int 나열로 들어간다.. iterable로 list를 만드는 것
+            population = a[i][j]
+            while q:
+                x, y = q.popleft()  # x,y를 바꿔 버린다..
+                for k in range(4):
+                    nx, ny = x + dx[k], y + dy[k]
+                    if 0 <= nx < n and 0 <= ny < n and not check[nx][ny]:
+                        if min_diff <= abs(a[x][y] - a[nx][ny]) <= max_diff:
+                            q.append((nx, ny))
+                            check[nx][ny] = True
+                            nations.append((nx, ny))
+                            population += a[nx][ny]
 
-                if len(union) > 1:
-                    population //= len(union)
-                    for x, y in union:
-                        a[x][y] = population
-                    moved = True
+            if len(nations) > 1:
+                moved = True
+                population //= len(nations)
+                for x, y in nations:
+                    a[x][y] = population
     return moved
 
 
-# 뼈대부터 만들어라. 그래야 길을 잃지 않아.
-ans = 0
-while True:
-    if bfs(a, l, r):
-        ans += 1
-    else:
-        break
-print(ans)
+n, min_diff, max_diff = map(int, input().split())
+a = [list(map(int, input().split())) for _ in range(n)]
+day = 0
+while bfs(a, min_diff, max_diff):
+    day += 1
+print(day)
