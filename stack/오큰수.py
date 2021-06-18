@@ -1,4 +1,8 @@
 # https://www.acmicpc.net/problem/17298
+"""
+오큰수 NGE(i)는 오른쪽에 있으면서 Ai보다 큰 수 중에서 가장 왼쪽에 있는 수, 없는 경우 -1.
+오른쪽으로 이동하며 큰 수를 만나면 바로 기록 -> 스택에 쌓는다.
+"""
 import sys
 
 n = int(input())
