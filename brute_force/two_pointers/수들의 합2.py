@@ -4,8 +4,8 @@ n, m = map(int, input().split())
 a = list(map(int, input().split()))
 start = end = cnt = 0
 sum = a[start]
-while start <= end and end < n:
-    if sum <= m:  # 늘려야
+while start < n and end < n:
+    if start > end or sum <= m:  # 늘려야
         if sum == m:
             cnt += 1
         end += 1
@@ -13,10 +13,6 @@ while start <= end and end < n:
             sum += a[end]
     else:  # 줄여야
         sum -= a[start]
-        if start == end:
-            end += 1
-            if end < n:
-                sum += a[end]
         start += 1
 print(cnt)
 
